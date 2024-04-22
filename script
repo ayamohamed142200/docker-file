@@ -1,0 +1,54 @@
+import nltk
+from nltk.corpus import stopwords
+import string
+from collections import Counter
+
+##with open('C:\\Users\\ahmed\\Downloads\\archive (11)\\paragraphs.txt', 'r') as file:
+nltk.download('punkt')
+nltk.download('stopwords')
+
+def remove_stopwords(input_text):
+    # Tokenize the text into words
+    words = nltk.word_tokenize(input_text)
+
+    # Get English stop words and punctuation
+    stop_words = set(stopwords.words('english'))
+    stop_words.update(string.punctuation)
+
+    # Remove stop words and punctuation
+    filtered_words = [word for word in words if word.lower() not in stop_words]
+
+    # Join the remaining words back into a single string
+    filtered_text = ' '.join(filtered_words)
+    
+    return filtered_text
+
+def count_word_frequency(input_text):
+    # Tokenize the text into words
+    words = nltk.word_tokenize(input_text)
+
+    # Count the frequency of each word
+    word_counts = Counter(words)
+    
+    return word_counts
+
+def display_word_frequency(word_counts):
+    # Display word frequency count to the console
+    print("Word Frequencies:")
+    for word, count in word_counts.items():
+        print(f"{word}: {word_counts[word]}")
+# Read the contents of the "random_paragraphs.txt" file
+input_file ='paragraphs.txt'
+with open(input_file, 'r') as file:
+    text = file.read()
+
+# Remove stop words from the text
+processed_text = remove_stopwords(text)
+
+
+
+# Count the frequency of each word in the processed text
+word_counts = count_word_frequency(processed_text)
+
+# Display the word frequency count to the console
+display_word_frequency(word_counts)
